@@ -1,0 +1,13 @@
+# environment variables
+.env
+
+# node
+server/node_modules
+
+# python
+.venv
+__pycache__/
+*.pyc
+
+# Generated output 
+data/alerts.json

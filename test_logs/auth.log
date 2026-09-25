@@ -1,0 +1,30 @@
+2026-08-30T01:12:04.170433+05:30 localhost unix_chkpwd[66460]: password check failed for user (admin)
+2026-08-30T01:12:04.170756+05:30 localhost gdm-password]: pam_unix(gdm-password:auth): authentication failure; logname=admin uid=0 euid=0 tty=/dev/tty1 ruser= rhost=  user=admin
+2026-08-31T19:20:11.750456+05:30 localhost unix_chkpwd[12240]: password check failed for user (rohit)
+2026-08-31T19:20:11.750940+05:30 localhost gdm-password]: pam_unix(gdm-password:auth): authentication failure; logname= uid=0 euid=0 tty=/dev/tty1 ruser= rhost=  user=rohit
+2026-08-31T19:51:02.126396+05:30 localhost unix_chkpwd[33288]: password check failed for user (admin)
+2026-08-31T19:51:02.126741+05:30 localhost polkit-agent-helper-1[33286]: pam_unix(polkit-1:auth): authentication failure; logname= uid=0 euid=0 tty= ruser=admin rhost=  user=admin
+2026-08-31T20:54:35.020629+05:30 localhost unix_chkpwd[41768]: password check failed for user (nemesis)
+2026-08-31T20:54:35.021065+05:30 localhost su: pam_unix(su:auth): authentication failure; logname=admin uid=1002 euid=0 tty=/dev/pts/0 ruser=admin rhost=  user=nemesis
+2026-08-31T20:54:37.220786+05:30 localhost su[41757]: FAILED SU (to nemesis) admin on pts/0
+2026-08-31T20:54:50.384936+05:30 localhost unix_chkpwd[41775]: password check failed for user (nemesis)
+2026-08-31T20:54:50.385307+05:30 localhost su: pam_unix(su:auth): authentication failure; logname=admin uid=1002 euid=0 tty=/dev/pts/0 ruser=admin rhost=  user=nemesis
+2026-08-31T20:54:52.131746+05:30 localhost su[41771]: FAILED SU (to nemesis) admin on pts/0
+2026-08-31T20:55:11.918002+05:30 localhost unix_chkpwd[41786]: password check failed for user (nemesis)
+2026-08-31T20:55:11.918518+05:30 localhost su: pam_unix(su:auth): authentication failure; logname=admin uid=1002 euid=0 tty=/dev/pts/0 ruser=admin rhost=  user=nemesis
+2026-08-31T20:55:13.673761+05:30 localhost su[41777]: FAILED SU (to nemesis) admin on pts/0
+2026-08-31T20:55:35.030525+05:30 localhost unix_chkpwd[41809]: password check failed for user (nemesis)
+2026-08-31T20:55:35.031126+05:30 localhost su: pam_unix(su:auth): authentication failure; logname=admin uid=1002 euid=0 tty=/dev/pts/0 ruser=admin rhost=  user=nemesis
+2026-08-31T20:55:36.219818+05:30 localhost su[41799]: FAILED SU (to nemesis) admin on pts/0
+2026-08-31T20:55:42.454864+05:30 localhost unix_chkpwd[41819]: password check failed for user (nemesis)
+2026-08-31T20:55:42.455286+05:30 localhost su: pam_unix(su:auth): authentication failure; logname=admin uid=1002 euid=0 tty=/dev/pts/0 ruser=admin rhost=  user=nemesis
+2026-08-31T20:55:44.229785+05:30 localhost su[41815]: FAILED SU (to nemesis) admin on pts/0
+2026-08-31T20:56:09.993059+05:30 localhost su[42278]: pam_systemd(su:session): Failed to check if /run/user/1000/bus exists, ignoring: Permission denied
+2026-07-28T02:14:29.140669+05:30 localhost unix_chkpwd[5540]: password check failed for user (rohit)
+2026-07-28T02:14:29.141007+05:30 localhost gdm-password]: pam_unix(gdm-password:auth): authentication failure; logname= uid=0 euid=0 tty=/dev/tty1 ruser= rhost=  user=rohit
+2026-09-05T22:15:46.444303+05:30 localhost unix_chkpwd[98880]: password check failed for user (rohit)
+2026-09-05T22:15:46.444921+05:30 localhost gdm-password]: pam_unix(gdm-password:auth): authentication failure; logname=rohit uid=0 euid=0 tty=/dev/tty1 ruser= rhost=  user=rohit
+2026-09-05T22:36:18.848497+05:30 localhost polkitd[2039]: Operator of unix-session:14 FAILED to authenticate to gain authorization for action org.gtk.vfs.file-operations-helper for unix-process:100285:1073611 [/bin/sh -c pkexec /usr/libexec/gvfsd-admin "$@" --address $DBUS_SESSION_BUS_ADDRESS --dir $XDG_RUNTIME_DIR gvfsd-admin --spawner :1.22 /org/gtk/gvfs/exec_spaw/5] (owned by unix-user:rohit)
+2026-09-05T22:36:18.932061+05:30 localhost polkit-agent-helper-1[100293]: pam_unix(polkit-1:auth): conversation failed
+2026-09-05T22:37:25.601622+05:30 localhost unix_chkpwd[100632]: password check failed for user (admin)
+2026-09-05T22:37:25.602141+05:30 localhost polkit-agent-helper-1[100625]: pam_unix(polkit-1:auth): authentication failure; logname= uid=0 euid=0 tty= ruser=admin rhost=  user=admin
