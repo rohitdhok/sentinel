@@ -1,0 +1,2 @@
+# sentinel
+A real-time security monitoring system that continuously collects system/application logs, analyzes security events, detects suspicious behavior and potential threats, generates alerts, stores security events, and displays them through a real-time dashboard.
