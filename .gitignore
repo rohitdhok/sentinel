@@ -8,6 +8,8 @@ server/node_modules
 .venv
 __pycache__/
 *.pyc
+tests.py
 
 # Generated output 
 data/alerts.json
+test_logs/demo.txt

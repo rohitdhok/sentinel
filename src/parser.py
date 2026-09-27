@@ -2,19 +2,21 @@ from datetime import datetime
 
 def extract_username(message):
     if " user=" in message:
-        return message.split(" user=")[1].split(" ")[0]
+        return message.split(" user=")[1].split()[0]
     elif "password check failed for user" in message:
         return message.split(" ")[-1].strip("()")
     else:
         return None
 
 def parse_log(log):
-    broken_log = log.split(" ")
+    log = log.strip();
 
-    time = datetime.fromisoformat(broken_log[0])
-    host = broken_log[1]
-    service = broken_log[2]
-    message = ' '.join(broken_log[3:])
+    parts = log.split(maxsplit=3)
+
+    time = datetime.fromisoformat(parts[0])
+    host = parts[1]
+    service = parts[2]
+    message = ' '.join(parts[3:])
     username = extract_username(message)
     event_type = ""
 
