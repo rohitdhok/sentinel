@@ -1,8 +1,7 @@
 import sys
 from src.parser import parse_log
-from src.detector import detect_auth_failures, detect_valid_window
-from src.reporter import print_report
 from src.output import save_alerts
+from src.detector import apply_rule, RULES
 
 event_count = {
     "authentication_failure": 0,
@@ -34,13 +33,7 @@ for log in logs:
         case "session_closed":
             event_count["session_closed"] += 1
 
-print(event_count)
-failures = detect_auth_failures(events)
-
-print("==============================================")
-for user in failures:
-    result = detect_valid_window(failures[user], user)
-    if result is not None:
-        alerts.append(result)
+for rule in RULES:
+     alerts.extend(apply_rule(events, rule))
 
 save_alerts(alerts)

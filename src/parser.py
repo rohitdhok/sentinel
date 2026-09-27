@@ -5,6 +5,9 @@ def extract_username(message):
         return message.split(" user=")[1].split()[0]
     elif "password check failed for user" in message:
         return message.split(" ")[-1].strip("()")
+    elif "FAILED SU" in message:
+        words = message.split()
+        return words[words.index("on") - 1]
     else:
         return None
 
@@ -20,7 +23,9 @@ def parse_log(log):
     username = extract_username(message)
     event_type = ""
 
-    if "authentication failure" in message or "password check failed for user" in message:
+    if "password check failed for user" in message:
+        event_type = "password_check_failed"
+    elif "authentication failure" in message:
         event_type = "authentication_failure"
     elif "FAILED SU" in message:
         event_type = "failed_privilege_switch"
