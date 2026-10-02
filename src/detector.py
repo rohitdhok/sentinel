@@ -92,4 +92,53 @@ def detect_window(timestamps, threshold, window_minutes):
             count -= 1
             left += 1 
 
+def process_event(event, rule, state):
+    if event["event_type"] != rule["event_type"]:
+        return None
 
+    username = event["username"]
+
+    if username is None:
+        return None
+
+    if username not in state:
+        state[username] = {
+            "timestamps": [],
+            "alerted": False
+        }
+
+    user_state = state[username]
+    timestamps = user_state["timestamps"]
+
+    timestamps.append(event["time"])
+
+    window = timedelta(minutes=rule["window_minutes"])
+
+    while timestamps and event["time"] - timestamps[0] > window:
+        timestamps.pop(0)
+
+    # If the previous alert window has expired,
+    # allow a new alert.
+    if len(timestamps) < rule["threshold"]:
+        user_state["alerted"] = False
+
+    result = detect_window(
+        timestamps,
+        rule["threshold"],
+        rule["window_minutes"]
+    )
+
+    if result is None:
+        return None
+
+    if user_state["alerted"]:
+        return None
+
+    user_state["alerted"] = True
+
+    result["username"] = username
+    result["alert_type"] = rule["alert_type"]
+    result["severity"] = rule["severity"]
+    result["time_window"] = f'{rule["window_minutes"]} minutes'
+
+    return result
