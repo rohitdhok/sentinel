@@ -1,8 +1,8 @@
 import sys
 from src.parser import parse_log
-from src.output import save_alerts
 from src.detector import process_event, RULES
 from src.monitor import monitor
+from src.database import save_alert
 
 # Keep count of different types of events
 event_count = {
@@ -47,4 +47,5 @@ for log in monitor(log_file):
 
         if alert is not None:
             alerts.append(alert)
+            save_alert(alert)
             print("ALERT:", alert)
