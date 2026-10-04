@@ -1,0 +1,14 @@
+[Unit]
+Description=Sentinel Linux Threat Detector
+After=local-fs.target
+
+[Service]
+Type=simple
+User=YOUR_USERNAME
+WorkingDirectory=/home/YOUR_USERNAME/PATH_TO_SENTINEL
+ExecStart=/home/YOUR_USERNAME/PATH_TO_SENTINEL/.venv/bin/python3 -u -m analyzer.main
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
