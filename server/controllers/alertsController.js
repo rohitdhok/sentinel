@@ -1,0 +1,66 @@
+const {getAllAlerts, getAlertsByUsername, getAlertsBySeverity, getAlertsStats} = require("../helpers/alertHelpers")
+
+async function handleGetAllAlerts(req, res) {
+    try {
+        const alerts = await getAllAlerts();
+     
+        if (alerts.length == 0) {
+            return res.status(404).json({message: "alerts not found"})
+        }
+
+        return res.json({alerts})
+    } catch (e) {
+        return res.status(500).json({
+            message: "Internal Server Error."
+        })
+    }  
+}
+
+async function handleGetAlertsByUsername(req, res) {
+    try {
+        const username = req.params.username;
+
+        const alerts = await getAlertsByUsername(username);
+
+        if (alerts.length == 0) {
+            return res.status(404).json({message: "Alerts not found."})
+        }
+
+        return res.json({alerts})
+    } catch(e) {
+        res.status(500).json({
+            message: "Internal Server Error."
+        })
+    }
+}
+
+async function handleGetAlertsBySeverity(req, res) {
+    try {
+        const severity = req.params.severity;
+    
+        const alerts = await getAlertsBySeverity(severity);
+
+        if (alerts.length == 0) {
+            return res.status(404).json({message: "Alerts not found."})
+        }
+
+        return res.json({alerts})
+    } catch(e) {
+        return res.status(500).json({
+            message: "Internal Server Error."
+        });
+    }
+}
+
+async function handleGetAlertsStats(req, res) {
+    try {
+        const {total_alerts, high_alerts, critical_alerts, recent_alerts} = await getAlertsStats();
+        return res.json({total_alerts, high_alerts, critical_alerts, recent_alerts});
+    } catch(e) {
+        return res.status(500).json({
+            message: "Internal Server Error"
+        })
+    }
+}
+
+module.exports = {handleGetAllAlerts, handleGetAlertsByUsername, handleGetAlertsBySeverity, handleGetAlertsStats}
