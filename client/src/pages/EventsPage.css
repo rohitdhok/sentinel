@@ -1,0 +1,127 @@
+.events-page {
+    min-height: 100vh;
+    padding: 32px 38px;
+    box-sizing: border-box;
+    background: #111315;
+    color: #e7e9ea;
+    font-family: Arial, sans-serif;
+}
+
+.events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #292e32;
+}
+
+.events-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.events-header p {
+    margin: 6px 0 0;
+    color: #858c92;
+    font-size: 13px;
+}
+
+.event-count {
+    padding: 7px 11px;
+    border: 1px solid #292e32;
+    border-radius: 4px;
+    color: #9ca5a0;
+    font-size: 12px;
+}
+
+.events-section {
+    background: #181b1e;
+    border: 1px solid #292e32;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.events-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.events-table-header,
+.event-row {
+    display: grid;
+    grid-template-columns: 155px 100px 180px 110px 110px minmax(300px, 1fr);
+    gap: 15px;
+    align-items: center;
+    min-width: 1050px;
+    padding: 14px 20px;
+    box-sizing: border-box;
+}
+
+.events-table-header {
+    color: #777f86;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.event-row {
+    border-top: 1px solid #25292d;
+    font-size: 13px;
+}
+
+.event-row:hover {
+    background: #1d2023;
+}
+
+.event-row > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.event-row > span:first-child {
+    color: #8d949b;
+    font-size: 12px;
+}
+
+.event-row > span:nth-child(2) {
+    color: #b8bec3;
+}
+
+.event-type {
+    color: #d5d9dc;
+}
+
+.event-message {
+    color: #858c92;
+}
+
+.no-events {
+    padding: 35px 20px;
+    text-align: center;
+    color: #777f86;
+    font-size: 13px;
+}
+
+@media (max-width: 900px) {
+    .events-page {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 700px) {
+    .events-page {
+        padding: 20px;
+    }
+
+    .events-header {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .event-count {
+        display: none;
+    }
+}

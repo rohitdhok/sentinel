@@ -6,68 +6,6 @@
     font-family: Arial, sans-serif;
 }
 
-/* Sidebar */
-
-.sidebar {
-    width: 230px;
-    min-height: 100vh;
-    padding: 24px 18px;
-    box-sizing: border-box;
-    background: #181b1e;
-    border-right: 1px solid #2a2e32;
-    display: flex;
-    flex-direction: column;
-}
-
-.brand h1 {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 600;
-}
-
-.brand span {
-    display: block;
-    margin-top: 5px;
-    color: #8d949b;
-    font-size: 12px;
-}
-
-.sidebar nav {
-    margin-top: 35px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.sidebar a {
-    padding: 9px 11px;
-    color: #858c92;
-    text-decoration: none;
-    font-size: 13px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease;
-}
-
-.sidebar a:hover {
-    background: #22262a;
-    color: #e7e9ea;
-}
-
-.sidebar a.active {
-    background: #252a2e;
-    color: #ffffff;
-}
-
-.sidebar a.active {
-    background: #252a2e;
-    color: #ffffff;
-}
-
-.sidebar-bottom {
-    margin-top: auto;
-}
-
 /* Main */
 
 .main-content {

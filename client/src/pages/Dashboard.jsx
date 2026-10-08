@@ -20,27 +20,6 @@ function Dashboard() {
 
     return (
         <div className="dashboard">
-
-            <aside className="sidebar">
-                <div className="brand">
-                    <h1>Sentinel</h1>
-                    <span>Linux Threat Detection</span>
-                </div>
-
-                <nav>
-                    <a className="active">Dashboard</a>
-                    <a>Events</a>
-                    <a>Alerts</a>
-                    <a>Analytics</a>
-                    <a>Detection Rules</a>
-                    <a>Security Knowledge</a>
-                </nav>
-
-                <div className="sidebar-bottom">
-                    <a>System Status</a>
-                </div>
-            </aside>
-
             <main className="main-content">
 
                 <header className="topbar">
