@@ -12,5 +12,11 @@ async function getAlertsStats() {
     return stats;
 }
 
-export {getAlerts, getAlertsStats}
+async function getAlertsBySeverity(severity) {
+    const response = await fetch(API + "/alerts/severity/" + severity);
+    const data = response.json();
+    return data
+}
+
+export {getAlerts, getAlertsStats, getAlertsBySeverity}
 

@@ -3,10 +3,6 @@ const {getAllAlerts, getAlertsByUsername, getAlertsBySeverity, getAlertsStats} =
 async function handleGetAllAlerts(req, res) {
     try {
         const alerts = await getAllAlerts();
-     
-        if (alerts.length == 0) {
-            return res.status(404).json({message: "alerts not found"})
-        }
 
         return res.json({alerts})
     } catch (e) {
@@ -19,12 +15,7 @@ async function handleGetAllAlerts(req, res) {
 async function handleGetAlertsByUsername(req, res) {
     try {
         const username = req.params.username;
-
         const alerts = await getAlertsByUsername(username);
-
-        if (alerts.length == 0) {
-            return res.status(404).json({message: "Alerts not found."})
-        }
 
         return res.json({alerts})
     } catch(e) {
@@ -37,12 +28,7 @@ async function handleGetAlertsByUsername(req, res) {
 async function handleGetAlertsBySeverity(req, res) {
     try {
         const severity = req.params.severity;
-    
         const alerts = await getAlertsBySeverity(severity);
-
-        if (alerts.length == 0) {
-            return res.status(404).json({message: "Alerts not found."})
-        }
 
         return res.json({alerts})
     } catch(e) {
