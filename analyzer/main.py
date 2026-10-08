@@ -2,7 +2,7 @@ import sys
 from src.parser import parse_log
 from src.detector import process_event, RULES
 from src.monitor import monitor
-from src.database import save_alert
+from src.database import save_alert, save_event
 
 # Keep count of different types of events
 event_count = {
@@ -26,6 +26,8 @@ for rule in RULES:
 # Read new log entries continuously
 for log in monitor(log_file):
     res = parse_log(log)
+    if res["event_type"] != "unknown":
+        save_event(res)
 
     # Update event counters
     match res["event_type"]:

@@ -42,6 +42,36 @@ def save_alert(alert):
                 Jsonb(alert["records"])
             )
         )
+        
+
+    conn.commit()
+    conn.close()
+
+def save_event(event):
+    conn = get_connection()
+
+    with conn.cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO events (
+                timestamp,
+                username,
+                event_type,
+                service,
+                host,
+                message
+            )
+            VALUES (%s, %s, %s, %s, %s, %s)
+            """,
+            (
+                event["time"],
+                event["username"],
+                event["event_type"],
+                event["service"],
+                event["host"],
+                event["message"]
+            )
+        )
 
     conn.commit()
     conn.close()
