@@ -1,4 +1,4 @@
-const {getAllAlerts, getAlertsByUsername, getAlertsBySeverity, getAlertsStats} = require("../helpers/alertHelpers")
+const {getAllAlerts, getAlertsByUsername, getAlertsBySeverity, getAlertsStats, getUsers, getAlertsByFilters} = require("../helpers/alertHelpers")
 
 async function handleGetAllAlerts(req, res) {
     try {
@@ -49,4 +49,29 @@ async function handleGetAlertsStats(req, res) {
     }
 }
 
-module.exports = {handleGetAllAlerts, handleGetAlertsByUsername, handleGetAlertsBySeverity, handleGetAlertsStats}
+async function handleGetUsers(req, res) {
+    try {
+        const users = await getUsers();
+        return res.json({users})
+    } catch {
+        return res.status(500).json({
+            message: "Internal Server Error"
+        })
+    }
+}
+
+async function handleGetAlertsByFilter(req, res) {
+    try {
+        const severity = req.query.severity
+        const username = req.query.username
+        const alerts = await getAlertsByFilters(severity, username);
+
+        return res.json({alerts})
+    } catch {
+        return res.status(500).json({
+            message: "Internal Server Error"
+        })
+    }
+}
+
+module.exports = {handleGetAllAlerts, handleGetAlertsByUsername, handleGetAlertsBySeverity, handleGetAlertsStats, handleGetUsers, handleGetAlertsByFilter}

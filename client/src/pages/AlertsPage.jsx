@@ -1,23 +1,40 @@
 import { useEffect, useState } from "react";
-import { getAlerts, getAlertsBySeverity } from "../services/alertsServices";
+import { getAlerts, getAlertsBySeverity, getAlertsByUsername, getUsernames, getAlertsByFilter } from "../services/alertsServices";
 import "./AlertsPage.css";
 
 function AlertsPage() {
     const [alerts, setAlerts] = useState([]);
     const [severity, setSeverity] = useState("");
+    const [users, setUsers] = useState([])
+    const [username, setUsername] = useState("");
+
+    useEffect(() => {
+        async function loadUsers() {
+            const data = await getUsernames();
+            setUsers(data.users);
+        }
+
+        loadUsers();
+    }, []);
 
     useEffect(() => {
         async function loadAlerts() {
-            if (severity == "") {
-                const data = await getAlerts();
-                setAlerts(data.alerts)
+            let data;
+
+            if (severity && username) {
+                data = await getAlertsByFilter(severity, username);
+            } else if (severity) {
+                data = await getAlertsBySeverity(severity);
+            } else if (username) {
+                data = await getAlertsByUsername(username);
             } else {
-                const data = await getAlertsBySeverity(severity);
-                setAlerts(data.alerts)
+                data = await getAlerts();
             }
+
+            setAlerts(data.alerts);
         }
         loadAlerts();
-    }, [severity]);
+    }, [severity, username]);
 
     return (
         <div className="alerts-page">
@@ -45,6 +62,21 @@ function AlertsPage() {
                         <option value="high">High</option>
                         <option value="very high">Very High</option>
                         <option value="critical">Critical</option>
+                    </select>
+                </div>
+
+                <div className="alerts-toolbar">
+                    <label htmlFor="user-filter">Username</label>
+
+                    <select
+                        id="user-filter"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    >
+                        <option value="">All</option>
+                        {users.map((user) => (
+                            <option key={user.username} value={user.username}>{user.username}</option>
+                        ))}
                     </select>
                 </div>
 

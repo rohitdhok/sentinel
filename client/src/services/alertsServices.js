@@ -14,9 +14,27 @@ async function getAlertsStats() {
 
 async function getAlertsBySeverity(severity) {
     const response = await fetch(API + "/alerts/severity/" + severity);
-    const data = response.json();
+    const data = await response.json();
     return data
 }
 
-export {getAlerts, getAlertsStats, getAlertsBySeverity}
+async function getUsernames() {
+    const response = await fetch(API + "/alerts/users");
+    const data = await response.json();
+    return data
+}
+
+async function getAlertsByUsername(username) {
+    const response = await fetch(API + "/alerts/user/" + username);
+    const data = await response.json();
+    return data
+}
+
+async function getAlertsByFilter(severity, username) {
+    const response = await fetch(API + "/alerts/filter?severity="+severity+"&username="+username);
+    const data = await response.json();
+    return data
+}
+
+export {getAlerts, getAlertsStats, getAlertsBySeverity, getAlertsByUsername, getUsernames, getAlertsByFilter}
 

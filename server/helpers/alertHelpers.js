@@ -1,7 +1,7 @@
 const pool = require("./db")
 
 async function getAllAlerts() {
-    return (await pool.query("SELECT * FROM alerts")).rows
+    return (await pool.query("SELECT * FROM alerts ORDER BY first_event DESC")).rows
 }
 
 async function getAlertsByUsername(username) {
@@ -21,4 +21,12 @@ async function getAlertsStats() {
     return {total_alerts, high_alerts, critical_alerts, recent_alerts}
 }
 
-module.exports = {getAllAlerts, getAlertsByUsername, getAlertsBySeverity, getAlertsStats}
+async function getUsers() {
+    return (await pool.query("SELECT DISTINCT username FROM alerts WHERE username IS NOT NULL ORDER BY username")).rows
+}
+
+async function getAlertsByFilters(severity, username) {
+    return (await pool.query("SELECT * FROM alerts WHERE severity = $1 AND username = $2", [severity, username])).rows
+}
+
+module.exports = {getAllAlerts, getAlertsByUsername, getAlertsBySeverity, getAlertsStats, getUsers, getAlertsByFilters}

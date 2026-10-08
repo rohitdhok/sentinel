@@ -1,7 +1,7 @@
 const pool = require("./db")
 
 async function getAllEvents() {
-    return (await pool.query("SELECT * FROM events")).rows
+    return (await pool.query("SELECT * FROM events ORDER BY timestamp DESC")).rows
 }
 
 async function getEventsByUsername(username) {
