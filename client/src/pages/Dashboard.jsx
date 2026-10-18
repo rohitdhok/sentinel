@@ -78,7 +78,7 @@ function Dashboard() {
                         {stats.recent_alerts?.map((alert) => (
                             <div className="alert-row" key={alert.id}>
                                 <span>
-                                    {new Date(alert.first_event).toLocaleTimeString()}
+                                    {new Date(alert.first_event).toLocaleString()}
                                 </span>
 
                                 <span>{alert.username}</span>

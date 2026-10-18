@@ -17,7 +17,7 @@ function Layout() {
                     <Link to="/alerts">Alerts</Link>
                     <a>Analytics</a>
                     <a>Detection Rules</a>
-                    <a>Security Knowledge</a>
+                    <Link to="/security-knowledge">Security Knowledge</Link>
                 </nav>
 
                 <div className="sidebar-bottom">
