@@ -16,6 +16,10 @@ function Dashboard() {
         }
 
         loadDashboard();
+
+        const intervalId = setInterval(loadDashboard, 5000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     return (

@@ -39,6 +39,10 @@ function AlertsPage() {
             setTotalAlerts(data.totalAlerts)
         }
         loadAlerts();
+
+        const intervalId = setInterval(loadAlerts, 5000)
+
+        return () => clearInterval(intervalId)
     }, [severity, username, page]);
 
     useEffect(() => {

@@ -48,6 +48,10 @@ function EventsPage() {
         }
 
         loadEvents();
+
+        const intervalId = setInterval(loadEvents, 5000);
+
+        return () => clearInterval(intervalId)
     }, [username, eventType, page]);
 
     return (
