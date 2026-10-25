@@ -1,15 +1,19 @@
 const pool = require("./db")
+const limit = 10
 
-async function getAllAlerts() {
-    return (await pool.query("SELECT * FROM alerts ORDER BY first_event DESC")).rows
+async function getAllAlerts(page) {
+    const offset = (page - 1) * limit
+    return (await pool.query("SELECT * FROM alerts ORDER BY first_event DESC OFFSET $1 LIMIT $2", [offset, limit])).rows
 }
 
-async function getAlertsByUsername(username) {
-    return (await pool.query("SELECT * FROM alerts WHERE username = $1", [username])).rows
+async function getAlertsByUsername(username, page) {
+    const offset = (page - 1 ) * limit
+    return (await pool.query("SELECT * FROM alerts WHERE username = $1 ORDER BY first_event OFFSET $2 LIMIT $3", [username, offset, limit])).rows
 }
 
-async function getAlertsBySeverity(severity) {
-    return (await pool.query("SELECT * FROM alerts WHERE severity = $1", [severity])).rows
+async function getAlertsBySeverity(severity, page) {
+    const offset = (page - 1 ) * limit
+    return (await pool.query("SELECT * FROM alerts WHERE severity = $1 ORDER BY first_event OFFSET $2 LIMIT $3", [severity, offset, limit])).rows
 }
 
 async function getAlertsStats() {
@@ -21,12 +25,21 @@ async function getAlertsStats() {
     return {total_alerts, high_alerts, critical_alerts, recent_alerts}
 }
 
+async function getTotalAlertsCount() {
+    return (await pool.query("SELECT COUNT(*) FROM alerts")).rows[0].count
+}
+
 async function getUsers() {
     return (await pool.query("SELECT DISTINCT username FROM alerts WHERE username IS NOT NULL ORDER BY username")).rows
 }
 
-async function getAlertsByFilters(severity, username) {
-    return (await pool.query("SELECT * FROM alerts WHERE severity = $1 AND username = $2", [severity, username])).rows
+async function getAlertsByFilters(severity, username, page) {
+    const offset = (page - 1) * limit
+    return (await pool.query("SELECT * FROM alerts WHERE severity = $1 AND username = $2 ORDER BY first_event OFFSET $3 LIMIT $4", [severity, username, offset, limit])).rows
 }
 
-module.exports = {getAllAlerts, getAlertsByUsername, getAlertsBySeverity, getAlertsStats, getUsers, getAlertsByFilters}
+async function getFilteredAlertsCount(severity, username) {
+    return Number(( await pool.query("SELECT COUNT(*) FROM alerts WHERE ($1::text IS NULL OR severity = $1) AND ($2::text IS NULL OR username = $2);", [severity, username])).rows[0].count)
+}
+
+module.exports = {getAllAlerts, getAlertsByUsername, getAlertsBySeverity, getAlertsStats, getUsers, getAlertsByFilters, getTotalAlertsCount, getFilteredAlertsCount}

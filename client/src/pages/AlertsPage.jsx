@@ -7,6 +7,9 @@ function AlertsPage() {
     const [severity, setSeverity] = useState("");
     const [users, setUsers] = useState([])
     const [username, setUsername] = useState("");
+    const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const [totalAlerts, setTotalAlerts] = useState(0)
 
     useEffect(() => {
         async function loadUsers() {
@@ -22,19 +25,25 @@ function AlertsPage() {
             let data;
 
             if (severity && username) {
-                data = await getAlertsByFilter(severity, username);
+                data = await getAlertsByFilter(severity, username, page);
             } else if (severity) {
-                data = await getAlertsBySeverity(severity);
+                data = await getAlertsBySeverity(severity, page);
             } else if (username) {
-                data = await getAlertsByUsername(username);
+                data = await getAlertsByUsername(username, page);
             } else {
-                data = await getAlerts();
+                data = await getAlerts(page);
             }
 
             setAlerts(data.alerts);
+            setTotalPages(data.totalPages)
+            setTotalAlerts(data.totalAlerts)
         }
         loadAlerts();
-    }, [severity, username]);
+    }, [severity, username, page]);
+
+    useEffect(() => {
+        setPage(1);
+    }, [username, severity])
 
     return (
         <div className="alerts-page">
@@ -45,7 +54,7 @@ function AlertsPage() {
                 </div>
 
                 <div className="alert-count">
-                    {alerts.length} alerts
+                    {totalAlerts} alerts
                 </div>
             </header>
 
@@ -123,6 +132,21 @@ function AlertsPage() {
                             No alerts recorded.
                         </div>
                     )}
+                </div>
+
+                <div className="pagination">
+                    <button
+                        onClick={() => setPage(p => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </button>
+
+                    <span>Page {page}</span>
+
+                    <button disabled={totalPages <= page} onClick={() => setPage(p => p + 1)}>
+                        Next
+                    </button>
                 </div>
             </section>
         </div>

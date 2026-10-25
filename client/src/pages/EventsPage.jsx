@@ -1,18 +1,54 @@
 import { useEffect, useState } from "react";
-import { getEvents } from "../services/eventsServices";
+import { getEvents, getEventsByFilter, getEventsByType, getEventsByUsername, getUsernames } from "../services/eventsServices";
 import "./EventsPage.css";
 
 function EventsPage() {
     const [events, setEvents] = useState([]);
+    const [eventType, setEventType] = useState("");
+    const [username, setUsername] = useState("");
+    const [users, setUsers] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalEvents, setTotalEvents] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        async function loadUsers() {
+            const data = await getUsernames();
+            setUsers(data.users);
+        }
+
+        loadUsers();
+    }, []);
 
     useEffect(() => {
         async function loadEvents() {
-            const data = await getEvents();
-            setEvents(data.events);
+            try {
+                let data;
+            
+                if (username && eventType) {
+                    data = await getEventsByFilter(username, eventType, page);
+                } else if (username) {
+                    data = await getEventsByUsername(username, page);
+                } else if (eventType) {
+                    data = await getEventsByType(eventType, page);
+                } else {
+                    data = await getEvents(page);
+                }
+                console.log("Events received:", data.events.length);
+                console.log("Latest event:", data.events[0]);
+                setEvents(data.events);
+                setTotalEvents(data.totalEvents);
+                setTotalPages(data.totalPages)
+            } catch(err) {
+                console.log(`Failed to load events : ${err}`);
+                setError("Unable to load events. Please try again")
+                setEvents([]);
+            }
         }
 
         loadEvents();
-    }, []);
+    }, [username, eventType, page]);
 
     return (
         <div className="events-page">
@@ -23,11 +59,48 @@ function EventsPage() {
                 </div>
 
                 <div className="event-count">
-                    {events.length} events
+                    {totalEvents} events
                 </div>
             </header>
 
             <section className="events-section">
+                <div className="events-toolbar">
+                    <label htmlFor="type-filter">Event Type</label>
+
+                    <select
+                        id="type-filter"
+                        value={eventType}
+                        onChange={(e) => setEventType(e.target.value)}
+                    >
+                        <option value="">All Types</option>
+                        <option value="authentication_failure">Authentication Failure</option>
+                        <option value="failed_privilege_switch">Failed Privilege Switch</option>
+                        <option value="privilege_switch">Privilege Switch</option>
+                        <option value="privileged_session_opened">Privileged Session Opened</option>
+                        <option value="sudo_command">Sudo Command</option>
+                        <option value="session_opened">Session Opened</option>
+                        <option value="session_closed">Session Closed</option>
+                    </select>
+                </div>
+
+                <div className="events-toolbar">
+                    <label htmlFor="user-filter">Username</label>
+
+                    <select
+                        id="user-filter"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    >
+                        <option value="">All Users</option>
+
+                        {users.map((user) => (
+                            <option key={user.username} value={user.username}>
+                                {user.username}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                {error && <div className="error-message">{error}</div>}
                 <div className="events-table">
                     <div className="events-table-header">
                         <span>Time</span>
@@ -71,6 +144,21 @@ function EventsPage() {
                             No events recorded.
                         </div>
                     )}
+                </div>
+
+                <div className="pagination">
+                    <button
+                        onClick={() => setPage(p => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </button>
+
+                    <span>Page {page}</span>
+
+                    <button disabled={totalPages <= page} onClick={() => setPage(p => p + 1)}>
+                        Next
+                    </button>
                 </div>
             </section>
         </div>
