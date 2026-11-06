@@ -69,9 +69,9 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="alerts-table">
+                    <div className="dashboard-alerts-table">
 
-                        <div className="table-header">
+                        <div className="dashboard-table-header">
                             <span>Time</span>
                             <span>User</span>
                             <span>Alert</span>
@@ -80,7 +80,7 @@ function Dashboard() {
                         </div>
 
                         {stats.recent_alerts?.map((alert) => (
-                            <div className="alert-row" key={alert.id}>
+                            <div className="dashboard-alert-row" key={alert.id}>
                                 <span>
                                     {new Date(alert.first_event).toLocaleString()}
                                 </span>
