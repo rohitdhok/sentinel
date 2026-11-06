@@ -38,5 +38,13 @@ async function getAlertsByFilter(severity, username, page) {
     return data;
 }
 
-export {getAlerts, getAlertsStats, getAlertsBySeverity, getAlertsByUsername, getUsernames, getAlertsByFilter}
+async function getAlertsSeverityDistribution() {
+    const response = await fetch(API + `/alerts/severity-distri`);
+    if (!response.ok) {throw new Error("Failed to fetch alert severity distribution.")}
+
+    const data = await response.json();
+    return data;
+}
+
+export {getAlerts, getAlertsStats, getAlertsBySeverity, getAlertsByUsername, getUsernames, getAlertsByFilter, getAlertsSeverityDistribution}
 

@@ -5,6 +5,7 @@ import EventsPage from './pages/EventsPage';
 import Layout from './layouts/Layout';
 import AlertsPage from './pages/AlertsPage';
 import SecurityKnowledgePage from './pages/SecurityKnowledgePage';
+import AnalyticsPage from './pages/AnalyticsPage';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/events" element={<EventsPage/>} />
                 <Route path="/alerts" element={<AlertsPage/>}/>
                 <Route path="/security-knowledge" element={<SecurityKnowledgePage/>}/>
+                <Route path="/events/analytics" element={<AnalyticsPage/>} />
             </Route>
         </Routes>
     </BrowserRouter>

@@ -42,4 +42,10 @@ async function getFilteredAlertsCount(severity, username) {
     return Number(( await pool.query("SELECT COUNT(*) FROM alerts WHERE ($1::text IS NULL OR severity = $1) AND ($2::text IS NULL OR username = $2);", [severity, username])).rows[0].count)
 }
 
-module.exports = {getAllAlerts, getAlertsByUsername, getAlertsBySeverity, getAlertsStats, getUsers, getAlertsByFilters, getTotalAlertsCount, getFilteredAlertsCount}
+async function getAlertsSeverityDistribution() {
+    return ( await pool.query("SELECT severity, COUNT(*) AS total FROM alerts GROUP BY severity ORDER BY total DESC") ).rows.map((row) => ({...row, total: Number(row.total)}))
+}
+
+module.exports = { getAllAlerts, getAlertsByUsername, getAlertsBySeverity,
+    getAlertsStats, getUsers, getAlertsByFilters,
+    getTotalAlertsCount, getFilteredAlertsCount, getAlertsSeverityDistribution}

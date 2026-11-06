@@ -30,4 +30,22 @@ async function getEventsByType(event_type, page) {
     return events;
 }
 
-export {getEvents, getEventsByFilter, getEventsByUsername, getEventsByType, getUsernames}
+async function getEventsDistribution() {
+    const response = await fetch(API + `/events/analytics`);
+    if (!response.ok) { throw new Error("Failed to fetch API.") };
+
+    const data = await response.json();
+    return data;
+}
+
+async function getEventActivity() {
+    const response = await fetch(API + `/events/activity`);
+    if (!response.ok) { throw new Error("Failed to fetch API.") }
+
+    const data = await response.json();
+    return data;
+}
+
+export {getEvents, getEventsByFilter, getEventsByUsername,
+    getEventsByType, getUsernames, getEventsDistribution,
+    getEventActivity}

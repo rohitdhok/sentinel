@@ -13,3 +13,6 @@ tests.py
 # Generated output 
 data/alerts.json
 test_logs/demo.txt
+
+# other
+Notes.md
