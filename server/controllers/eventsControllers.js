@@ -1,4 +1,4 @@
-const {getAllEvents, getEventsByUsername, getEventsByType, getTotalEventsCount, getEventsByFilter,  getFilteredEventCount, getEventsDistribution, getEventActivity} = require("../helpers/eventHelpers");
+const {getAllEvents, getEventsByUsername, getEventsByType, getTotalEventsCount, getEventsByFilter,  getFilteredEventCount, getEventsDistribution, getEventActivity, getEventsUsernames} = require("../helpers/eventHelpers");
 const { getPage } = require("../helpers/generalUtility");
 
 const limit = 15;
@@ -98,6 +98,16 @@ async function handleGetEventActivity(req, res, next) {
     }
 }
 
+async function handleGetEventsUsername(req, res, next) {
+    try {
+        const usernames = await getEventsUsernames();
+
+        return res.json({usernames})
+    } catch(e) {
+        return next(e);
+    }
+}
+
 module.exports = {handleGetAllEvents, handleGetEventsByUsername,
     handleGetEventsByType, handleGetEventsByFilter,
-    handleGetEventsDistribution, handleGetEventActivity}
+    handleGetEventsDistribution, handleGetEventActivity, handleGetEventsUsername}

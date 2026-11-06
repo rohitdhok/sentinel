@@ -1,6 +1,7 @@
 require("dotenv").config({path: "../.env"});
 const alertRoutes = require("./routes/alertRoutes");
 const eventRoutes = require("./routes/eventRoutes");
+const analyticsRoutes = require("./routes/analyticsRoutes")
 
 const PORT = 3000;
 const express = require("express");
@@ -15,6 +16,7 @@ app.use(express.json());
 // Routes
 app.use("/alerts", alertRoutes);
 app.use("/events", eventRoutes);
+app.use("/analytics", analyticsRoutes)
 
 // Centralized error handling middleware
 app.use((err, req, res, next) => {

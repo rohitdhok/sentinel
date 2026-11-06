@@ -37,5 +37,11 @@ async function getEventActivity() {
     return ( await pool.query("SELECT DATE_TRUNC('hour', timestamp) as period, COUNT(*) AS total FROM events WHERE timestamp >= NOW() - INTERVAL '24 hours' GROUP BY period ORDER BY period") ).rows.map((row) => ({...row, total: Number(row.total)}))
 }
 
+async function getEventsUsernames() {
+    return ( await pool.query("SELECT DISTINCT username FROM events WHERE username IS NOT NULL AND TRIM(username) <> '' AND username <> 'gdm-greeter' ORDER BY username") ).rows
+}
 
-module.exports = {getAllEvents, getEventsByUsername, getEventsByType, getTotalEventsCount, getFilteredEventCount, getEventsByFilter, getEventsDistribution, getEventActivity}
+
+module.exports = {getAllEvents, getEventsByUsername, getEventsByType,
+    getTotalEventsCount, getFilteredEventCount, getEventsByFilter,
+    getEventsDistribution, getEventActivity, getEventsUsernames}

@@ -46,6 +46,13 @@ async function getEventActivity() {
     return data;
 }
 
+async function getEventsUsername() {
+    const response = await fetch(API + `/events/users`);
+    if (!response.ok) {throw new Error("Failed to fetch usernames");}
+    const data = await response.json();
+    return data;
+}
+
 export {getEvents, getEventsByFilter, getEventsByUsername,
     getEventsByType, getUsernames, getEventsDistribution,
-    getEventActivity}
+    getEventActivity, getEventsUsername}

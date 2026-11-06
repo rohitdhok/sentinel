@@ -6,6 +6,7 @@ import Layout from './layouts/Layout';
 import AlertsPage from './pages/AlertsPage';
 import SecurityKnowledgePage from './pages/SecurityKnowledgePage';
 import AnalyticsPage from './pages/AnalyticsPage';
+import UserAnalyticsPage from './pages/UserAnalyticsPage';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
                 <Route path="/alerts" element={<AlertsPage/>}/>
                 <Route path="/security-knowledge" element={<SecurityKnowledgePage/>}/>
                 <Route path="/events/analytics" element={<AnalyticsPage/>} />
+                <Route path="/events/user-analytics" element={<UserAnalyticsPage/>}/>
             </Route>
         </Routes>
     </BrowserRouter>
