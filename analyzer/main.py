@@ -1,8 +1,13 @@
 import sys
 from src.parser import parse_log
-from src.detector import process_event, RULES
+from src.detector import process_event
 from src.monitor import monitor
-from src.database import save_alert, save_event
+from src.database import save_alert, save_event, get_detection_rules
+import time
+
+RULE_RELOAD_INTERVAL = 10
+last_rule_reload = time.monotonic()
+RULES = get_detection_rules()
 
 # Keep count of different types of events
 event_count = {
@@ -23,8 +28,31 @@ states = {}
 for rule in RULES:
     states[rule["event_type"]] = {}
 
+print(f"Loaded {len(RULES)} detection rules")
+print(f"Monitoring log file: {log_file}")
 # Read new log entries continuously
 for log in monitor(log_file):
+    current_time = time.monotonic()
+
+    if current_time - last_rule_reload >= RULE_RELOAD_INTERVAL:
+        print("done")
+        try:
+            new_rules = get_detection_rules()
+
+            RULES = new_rules
+
+            states = {
+                rule["event_type"]: states.get(rule["event_type"], {})
+                for rule in RULES
+            }
+
+            last_rule_reload = current_time
+
+            print(f"Detection rules reloaded: {len(RULES)} active rules")
+
+        except Exception as e:
+            print(f"Rule reload failed: {e}")
+
     res = parse_log(log)
     if res["event_type"] != "unknown":
         save_event(res)

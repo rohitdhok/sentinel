@@ -17,7 +17,7 @@ function Layout() {
                     <Link to="/alerts">Alerts</Link>
                     <Link to="/events/analytics">Analytics</Link>
                     <Link to="/events/user-analytics">User Analytics</Link>
-                    <a>Detection Rules</a>
+                    <Link to="/detection-rules">Detection Rules</Link>
                     <Link to="/security-knowledge">Security Knowledge</Link>
                 </nav>
 

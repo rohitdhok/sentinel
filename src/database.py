@@ -75,3 +75,25 @@ def save_event(event):
 
     conn.commit()
     conn.close()
+
+def get_detection_rules():
+    conn = get_connection()
+
+    with conn.cursor() as cur:
+        cur.execute("""
+            SELECT id, event_type, threshold, window_minutes,
+                   severity, alert_type, enabled
+            FROM detection_rules
+            WHERE enabled = TRUE
+        """)
+
+        rules = cur.fetchall()
+
+    conn.close()
+
+    columns = [
+        "id", "event_type", "threshold", "window_minutes",
+        "severity", "alert_type", "enabled"
+    ]
+
+    return [dict(zip(columns, row)) for row in rules]

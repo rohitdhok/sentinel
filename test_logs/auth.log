@@ -28,3 +28,5 @@
 2026-09-05T22:36:18.932061+05:30 localhost polkit-agent-helper-1[100293]: pam_unix(polkit-1:auth): conversation failed
 2026-09-05T22:37:25.601622+05:30 localhost unix_chkpwd[100632]: password check failed for user (admin)
 2026-09-05T22:37:25.602141+05:30 localhost polkit-agent-helper-1[100625]: pam_unix(polkit-1:auth): authentication failure; logname= uid=0 euid=0 tty= ruser=admin rhost=  user=admin
+2026-08-30T01:12:04.170433+05:30 localhost unix_chkpwd[66460]: password check failed for user (admin)
+2026-08-30T01:12:04.170433+05:30 localhost unix_chkpwd[66460]: password check failed for user (admin)

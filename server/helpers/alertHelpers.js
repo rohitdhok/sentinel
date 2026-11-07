@@ -8,12 +8,12 @@ async function getAllAlerts(page) {
 
 async function getAlertsByUsername(username, page) {
     const offset = (page - 1 ) * limit
-    return (await pool.query("SELECT * FROM alerts WHERE username = $1 ORDER BY first_event OFFSET $2 LIMIT $3", [username, offset, limit])).rows
+    return (await pool.query("SELECT * FROM alerts WHERE username = $1 ORDER BY first_event DESC OFFSET $2 LIMIT $3", [username, offset, limit])).rows
 }
 
 async function getAlertsBySeverity(severity, page) {
     const offset = (page - 1 ) * limit
-    return (await pool.query("SELECT * FROM alerts WHERE severity = $1 ORDER BY first_event OFFSET $2 LIMIT $3", [severity, offset, limit])).rows
+    return (await pool.query("SELECT * FROM alerts WHERE severity = $1 ORDER BY first_event DESC OFFSET $2 LIMIT $3", [severity, offset, limit])).rows
 }
 
 async function getAlertsStats() {
@@ -35,7 +35,7 @@ async function getUsers() {
 
 async function getAlertsByFilters(severity, username, page) {
     const offset = (page - 1) * limit
-    return (await pool.query("SELECT * FROM alerts WHERE severity = $1 AND username = $2 ORDER BY first_event OFFSET $3 LIMIT $4", [severity, username, offset, limit])).rows
+    return (await pool.query("SELECT * FROM alerts WHERE severity = $1 AND username = $2 ORDER BY first_event DESC OFFSET $3 LIMIT $4", [severity, username, offset, limit])).rows
 }
 
 async function getFilteredAlertsCount(severity, username) {

@@ -7,6 +7,7 @@ import AlertsPage from './pages/AlertsPage';
 import SecurityKnowledgePage from './pages/SecurityKnowledgePage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import UserAnalyticsPage from './pages/UserAnalyticsPage';
+import DetectionRulesPage from './pages/DetectionRulesPage';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/security-knowledge" element={<SecurityKnowledgePage/>}/>
                 <Route path="/events/analytics" element={<AnalyticsPage/>} />
                 <Route path="/events/user-analytics" element={<UserAnalyticsPage/>}/>
+                <Route path="/detection-rules" element={<DetectionRulesPage/>}/>
             </Route>
         </Routes>
     </BrowserRouter>
